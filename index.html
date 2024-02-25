@@ -21,6 +21,9 @@
             color: #fff;
             padding: 10px;
             text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         header img {
@@ -28,33 +31,37 @@
             height: auto; /* Maintain aspect ratio */
             margin-right: 10px;
         }
-       /* Media Queries for Responsive Design */
-@media only screen and (max-width: 600px) {
-    /* Adjust header styles for small screens */
-    header {
-        padding: 10px 5px;
-    }
 
-    header img {
-        width: 40px;
-        margin-right: 5px;
-    }
+        /* Navigation Styles */
+        nav {
+            background-color: #333;
+            padding: 10px;
+            display: flex;
+            justify-content: right;
+            align-items: center;
+        }
 
-    /* Adjust navigation styles for small screens */
-    nav {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            margin-right: 10px;
+        }
 
-    nav a {
-        margin: 0;
-    }
+        .menu-icon {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
 
-    .cart-section {
-        margin-right: 0;
-        margin-top: 10px;
-    }
-}
+        .menu-icon div {
+            width: 30px;
+            height: 3px;
+            background-color: #fff;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+
         .cart-icon {
             display: inline-block;
             width: 30px;
@@ -64,6 +71,7 @@
             border-radius: 50%;
             text-align: center;
             line-height: 30px;
+            margin-right: 10px;
             cursor: pointer;
         }
 
@@ -197,6 +205,50 @@
         .cart-section {
             margin-right: 20px;
         }
+
+        /* Media Queries for Responsive Design */
+        @media only screen and (max-width: 600px) {
+            /* Adjust header styles for small screens */
+            header {
+                padding: 10px 5px;
+            }
+
+            header img {
+                width: 40px;
+                margin-right: 5px;
+            }
+
+            .menu-icon {
+                display: flex;
+            }
+
+            nav {
+                display: none;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav a {
+                margin: 0;
+            }
+
+            .cart-section {
+                margin-right: 0;
+                margin-top: 10px;
+            }
+
+            .menu-icon div:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .menu-icon div:nth-child(2) {
+                opacity: 0;
+            }
+
+            .menu-icon div:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+        }
     </style>
     <title>Navbar with Cart Icon</title>
 </head>
@@ -204,12 +256,17 @@
 <body>
     <!-- Header -->
     <header>
+        <div class="menu-icon" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
         <img src="your-logo.png" alt="Logo">
         Your Website Name
     </header>
 
     <!-- Navigation Bar -->
-    <nav>
+    <nav id="main-nav">
         <a href="#">Home</a>
         <a href="#">About</a>
         <a href="#">Shop</a>
@@ -218,6 +275,11 @@
             <div class="cart-icon" onclick="openCart()">🛒 <span class="cart-count" id="cart-count">0</span></div>
         </div>
     </nav>
+
+    <!-- Cart Section 
+    <div class="cart-section">
+        <div class="cart-icon" onclick="openCart()">🛒 <span class="cart-count" id="cart-count">0</span></div>
+    </div>-->
 
     <!-- Product Cards -->
     <div class="product-card">
@@ -293,10 +355,6 @@
     </div>
 
     <script>
-         function toggleNav() {
-            var nav = document.querySelector('nav');
-            nav.style.display = (nav.style.display === 'flex' || nav.style.display === '') ? 'none' : 'flex';
-        }
         // Add your JavaScript functions here
 
         var cart = [];
@@ -414,6 +472,11 @@
 
         function generateTrackingAddress() {
             return Math.floor(Math.random() * 1000000);
+        }
+
+        function toggleMenu() {
+            var mainNav = document.getElementById('main-nav');
+            mainNav.style.display = (mainNav.style.display === 'flex' || mainNav.style.display === '') ? 'none' : 'flex';
         }
 
         initializePage();
